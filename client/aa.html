@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSE Client</title>
+</head>
+<body>
+  <ul id="messages"></ul>
+  <script type="text/javascript">
+    const messagesList = document.getElementById('messages');
+    const eventSource = new EventSource('localgost3000:/sse');
+    
+    eventSource.onmessage = ({ data }) => {
+      const message = document.createElement('li');
+      message.innerText = 'New message: ' + data;
+      messagesList.appendChild(message);
+    }
+  </script>
+</body>
+</html>
