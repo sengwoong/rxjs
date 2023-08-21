@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Press Time</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.4.0/rxjs.umd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const { fromEvent } = rxjs;
+            const { map, throttleTime, filter } = rxjs.operators;
+
+            fromEvent(document, 'keydown').pipe(
+                filter(event => event.key === 'a' || event.key === 's' || event.key === 'w' || event.key === 'd'),
+                map(event => new Date()),
+                throttleTime(300)
+            ).subscribe(time => {
+                console.log("Time when 'a', 's', 'w', or 'd' was pressed:", time);
+            });
+
+
+            fromEvent(document, 'click').pipe(
+                map(event => new Date()),
+                throttleTime(300)
+            ).subscribe(time => {
+                console.log("Time when a mouse click occurred:", time);
+            });
+            
+            
+        });
+
+        
+    </script>
+</body>
+</html>
